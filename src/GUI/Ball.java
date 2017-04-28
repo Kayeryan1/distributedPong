@@ -1,16 +1,15 @@
 package GUI;
 
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Circle;
 
-class Ball extends Rectangle {
+class Ball extends Circle {
 	private final Point position;
 	private final Point velocity;
 	
-	public Ball(double x, double y, double velX, double velY, int length) {
+	public Ball(double x, double y, double velX, double velY, double radius) {
 		this.position = new Point(x, y);
 		this.velocity = new Point(velX, velY);
 		
-		this.setWidth(length);
-		this.setHeight(length);
+		this.setRadius(radius);
 	}
 }

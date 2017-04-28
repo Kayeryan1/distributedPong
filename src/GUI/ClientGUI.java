@@ -1,5 +1,7 @@
 package GUI;
 
+import com.sun.prism.paint.Color;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -32,6 +34,7 @@ public class ClientGUI extends Application {
 		);
 
 		Pane root = new Pane();
+		root.setStyle("-fx-background-color: " + Color.RED);
 		root.getChildren().addAll(paddleOne, paddleTwo);
 
 		primaryStage.setScene(new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT));
