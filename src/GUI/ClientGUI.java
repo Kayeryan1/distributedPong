@@ -14,19 +14,15 @@ public class ClientGUI extends Application {
 	private final static int WINDOW_HEIGHT = 420;
 	private final static int PADDLE_LENGTH = 25; 
 	private final static int PADDLE_WIDTH = 3; 
+	private final static int PADDLE_PADDING = 15;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Distributed Pong –– Player " + playerNumber);
 		
-		Paddle paddleOne = new Paddle(1,1,1,1);
+		Paddle paddleOne = new Paddle(PADDLE_PADDING, WINDOW_HEIGHT/2, PADDLE_LENGTH, PADDLE_WIDTH);
+		Paddle paddleTwo = new Paddle(WINDOW_WIDTH-PADDLE_PADDING, WINDOW_HEIGHT/2, PADDLE_LENGTH, PADDLE_WIDTH);
 
-		Line paddleTwo = new Line();
-		paddleTwo.setStartX(WINDOW_WIDTH-(20 + PADDLE_WIDTH));
-		paddleTwo.setStartY((WINDOW_HEIGHT/2) - (PADDLE_LENGTH/2));
-		paddleTwo.setEndX(paddleTwo.getStartX());
-		paddleTwo.setEndY((WINDOW_HEIGHT/2) + (PADDLE_LENGTH/2));
-		
 		Pane root = new Pane();
 		root.getChildren().addAll(paddleOne, paddleTwo);
 		primaryStage.setScene(new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -49,14 +45,17 @@ class Paddle extends Line {
 		this.length = length;
 
 		this.setStrokeWidth(width);
-		
 		update();
 	}
 	
 	private void update() {
-		this.setStartX(position.x - (length/2));
+		this.setStartX(position.x);
 		this.setStartY(position.y - (length/2));
 		this.setEndX(position.x);
 		this.setEndY(position.y + (length/2));
 	}
+}
+
+class PaddleMover extends KeyListener {
+	
 }
