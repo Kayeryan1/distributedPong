@@ -3,6 +3,7 @@ package GUI;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -14,16 +15,34 @@ public class SocketTest {
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
 	
+	private ServerSocket ss;
+	
 	public SocketTest() {
+		serverSetup();
+	}
+	
+	public void serverSetup() {
 		try {
-			socket = new Socket(ADDRESS, PORT);
-			ois = new ObjectInputStream(socket.getInputStream());
-			oos = new ObjectOutputStream(socket.getOutputStream());
-		} catch (UnknownHostException e) {
+			ss = new ServerSocket(PORT);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		try {
+			socket = ss.accept();
+			System.out.printf("Server connected to socket: %d\n\n", socket.getPort());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			oos = new ObjectOutputStream(socket.getOutputStream());
+			ois = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
 	
 	public void doStuff() {
@@ -37,10 +56,26 @@ public class SocketTest {
 			e.printStackTrace();
 		}
 	}
+	public void serverDoStuff() {
+		try {
+			System.out.println("!!!!!!!!here1!!!!!");
+			System.out.println((String) ois.readObject());
+			System.out.println("!!!!!!!!here2!!!!!");
+
+			oos.writeObject("Hello, michael");
+			System.out.println("!!!!!!!!here3!!!!!");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 	public static void main(String[] args) {
-		
+		SocketTest st = new SocketTest();
+		st.serverDoStuff();
 	}
 	
 }
