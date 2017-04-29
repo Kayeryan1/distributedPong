@@ -29,18 +29,22 @@ public class SocketTest {
 	public void doStuff() {
 		try {
 			oos.writeObject("Hello, Ryan");
+			Thread.sleep(2200);
 			Object response = ois.readObject();
 			System.out.println("Response from Ryan: " + (String)response);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 	
 	
 	public static void main(String[] args) {
-		
+		SocketTest socket = new SocketTest();
+		socket.doStuff();
 	}
 	
 }
