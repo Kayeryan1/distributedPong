@@ -77,13 +77,13 @@ public class SocketTest {
 	
 	
 	public static void main(String[] args) {
-<<<<<<< HEAD
+		/* Client */
 		SocketTest socket = new SocketTest();
 		socket.doStuff();
-=======
+		/* Server
 		SocketTest st = new SocketTest();
 		st.serverDoStuff();
->>>>>>> 2cc216074896b936a587f4e770dbff8f8b967573
+		*/
 	}
 	
 }
