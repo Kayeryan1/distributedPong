@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 
 public class SocketTest {
 	private Socket socket;
-	private static final String ADDRESS = "10.0.0.184";
+	private static final String HOST_ADDRESS = "10.0.0.184";
 	private static final int PORT = 15001;
 	
 	private ObjectInputStream ois;
