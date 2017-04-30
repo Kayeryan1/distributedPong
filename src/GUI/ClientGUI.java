@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import com.sun.prism.paint.Color;
 
@@ -6,6 +6,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import network.ClientNetworkService;
+import network.HostNetworkService;
+import network.NetworkService;
 
 public class ClientGUI extends Application {
 	
@@ -44,6 +47,17 @@ public class ClientGUI extends Application {
 	}
 	
 	public static void main(String[] args) {
+		boolean isHost = true;
+		String address = "10.0.0.184";
+		int port = 15001;
+		int numPlayers = 2;
+
+		final NetworkService service;
+		if (isHost) {
+			service = new HostNetworkService(address, port, numPlayers);
+		} else {
+			service = new ClientNetworkService(address, port, numPlayers);
+		}
 		launch(args);
 	}
 }

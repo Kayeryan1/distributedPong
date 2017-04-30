@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 public class Point {
 	double x, y;

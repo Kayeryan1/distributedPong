@@ -1,4 +1,4 @@
-package GUI;
+package network;
 
 public class PlayerNetworkData implements Comparable<PlayerNetworkData> {
 	final int playerNumber;

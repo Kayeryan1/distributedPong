@@ -1,9 +1,11 @@
-package GUI;
+package network;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import gui.Point;
 
 public class ClientSocket implements Comparable<ClientSocket> {
 	
@@ -24,10 +26,6 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		}
 	}
 	
-	public PlayerNetworkData getPlayerNetworkData() {
-		return new PlayerNetworkData(playerNumber, socket.getInetAddress().toString(), socket.getPort());
-	}
-	
 	public ClientSocket(Socket socket, int playerNumber) {
 		this.playerNumber = playerNumber;
 		this.socket = socket;
@@ -38,9 +36,13 @@ public class ClientSocket implements Comparable<ClientSocket> {
 			e.printStackTrace();
 		}
 	}
+
+	public PlayerNetworkData getPlayerNetworkData() {
+		return new PlayerNetworkData(playerNumber, socket.getInetAddress().toString(), socket.getPort());
+	}
 	
 	//TODO: refactor these send and receive methods to just one method somehow
-	public void sendPoint(Point point) {
+	public void send(Point point) {
 		try {
 			output.writeObject(point);
 		} catch (IOException e) {
