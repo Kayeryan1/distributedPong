@@ -29,11 +29,11 @@ public class ClientGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		//TODO: grab all these variables using getParameters()
-		final boolean isHost = true;
+		final boolean isHost = false;
 		final String address = "10.0.0.22";
 		final int port = 15001;
 		final int numPlayers = 2;
-		playerNumber = 0;
+		playerNumber = 1;
 
 		if (isHost) {
 			service = new HostNetworkService(address, port, numPlayers);
