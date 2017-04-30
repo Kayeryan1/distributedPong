@@ -21,4 +21,9 @@ public class PlayerNetworkData implements Comparable<PlayerNetworkData>, Seriali
 		Integer otherNum = other.playerNumber;
 		return thisNum.compareTo(otherNum);
 	}
+	
+	@Override
+	public String toString() {
+		return "PlayerNetworkData [PlayerNumber: " + playerNumber + ", Address: " + address + ", Port: " + port + "]";
+	}
 }
