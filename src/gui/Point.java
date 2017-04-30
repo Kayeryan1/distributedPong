@@ -1,6 +1,10 @@
 package gui;
 
-public class Point {
+import java.io.Serializable;
+
+public class Point implements Serializable {
+	private static final long serialVersionUID = -6961197475891799948L;
+
 	double x, y;
 	public int playerNumber = -1;
 

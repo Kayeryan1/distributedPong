@@ -30,7 +30,7 @@ public class ClientGUI extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		//TODO: grab all these variables using getParameters()
 		final boolean isHost = true;
-		final String address = "10.0.0.184";
+		final String address = "10.0.0.22";
 		final int port = 15001;
 		final int numPlayers = 2;
 		playerNumber = 0;

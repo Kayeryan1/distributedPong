@@ -17,6 +17,4 @@ public class ClientNetworkService extends NetworkService {
 			}
 		}
 	}
-
-
 }

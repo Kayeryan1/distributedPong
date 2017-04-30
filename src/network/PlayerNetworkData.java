@@ -1,6 +1,10 @@
 package network;
 
-public class PlayerNetworkData implements Comparable<PlayerNetworkData> {
+import java.io.Serializable;
+
+public class PlayerNetworkData implements Comparable<PlayerNetworkData>, Serializable {
+	private static final long serialVersionUID = 5564981942720770147L;
+
 	final int playerNumber;
 	final String address;
 	final int port;
