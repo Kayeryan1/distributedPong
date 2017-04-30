@@ -13,19 +13,21 @@ public class HostNetworkService extends NetworkService {
 		try {
 			listener = new ServerSocket(this.hostPort);
 			System.out.println("Got to here");
+
+			playerNetworkData[0] = new PlayerNetworkData(numPlayers, hostAddress, hostPort);
 			for (int i = 0; i < this.numOpponents; i++) {
 				int playerNumber = i+1;
 				remotePlayerSockets[i] = new ClientSocket(listener.accept(), playerNumber);
 				System.out.println(remotePlayerSockets[i]);
-				remotePlayerNetworkData[i] = remotePlayerSockets[i].getPlayerNetworkData();
+				playerNetworkData[playerNumber] = remotePlayerSockets[i].getPlayerNetworkData();
 				System.out.println("Got to here 0 for player " + playerNumber);
 			}
 			System.out.println("Got to here 1 ");
 			
 			for (int i = 0; i < this.numOpponents; i++) {
-				for (int j = 0; j < this.numOpponents; j++) {
+				for (int j = 0; j < this.numPlayers; j++) {
 					// send player network data to others
-					remotePlayerSockets[i].send(remotePlayerNetworkData[j]);
+					remotePlayerSockets[i].send(playerNetworkData[j]);
 					System.out.println("Got to here 1 for player " + i);
 				}
 			}
