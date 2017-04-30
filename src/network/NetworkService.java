@@ -8,8 +8,8 @@ public abstract class NetworkService {
 		final int numPlayers;
 		final int numOpponents;
 
-		ClientSocket[] opponents;
-		PlayerNetworkData[] opponentData;
+		ClientSocket[] remotePlayerSockets;
+		PlayerNetworkData[] remotePlayerNetworkData;
 
 		int localPlayerID;
 		
@@ -19,20 +19,20 @@ public abstract class NetworkService {
 			this.numPlayers = numPlayers;
 			this.numOpponents = numPlayers - 1;
 
-			opponents = new ClientSocket[numOpponents];
-			opponentData =  new PlayerNetworkData[numOpponents];
+			remotePlayerSockets = new ClientSocket[numOpponents];
+			remotePlayerNetworkData =  new PlayerNetworkData[numOpponents];
 		}
 		
 		public void broadcastLocation(Point point) {
-			for (ClientSocket opponent : opponents) {
+			for (ClientSocket opponent : remotePlayerSockets) {
 				opponent.send(point);
 			}
 		}
 		
-		public Point[] receiveOpponentLocations() {
+		public Point[] receiveRemotePlayerLocations() {
 			Point[] opponentLocations = new Point[numOpponents];
 			for (int i = 0; i < numOpponents; i++) {
-				opponentLocations[i] = opponents[i].receivePoint();
+				opponentLocations[i] = remotePlayerSockets[i].receivePoint();
 			}
 			return opponentLocations;
 		}

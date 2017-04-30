@@ -13,14 +13,14 @@ public class HostNetworkService extends NetworkService {
 			listener = new ServerSocket(this.hostPort);
 			for (int i = 0; i < this.numOpponents; i++) {
 				int playerNumber = i+1;
-				opponents[i] = new ClientSocket(listener.accept(), playerNumber);
-				opponentData[i] = opponents[i].getPlayerNetworkData();
+				remotePlayerSockets[i] = new ClientSocket(listener.accept(), playerNumber);
+				remotePlayerNetworkData[i] = remotePlayerSockets[i].getPlayerNetworkData();
 			}
 			
 			for (int i = 0; i < this.numOpponents; i++) {
 				for (int j = 0; j < this.numOpponents; j++) {
 					// send player network data to others
-					opponents[i].send(opponentData[j]);
+					remotePlayerSockets[i].send(remotePlayerNetworkData[j]);
 				}
 			}
 		} catch (IOException e) {

@@ -20,9 +20,9 @@ class Paddle extends Line {
 		this.orientation = orientation;
 		this.setStrokeWidth(width);
 		if (isPlayer) {
-			setAsPlayer();
+			setAsLocalPlayer();
 		} else {
-			setAsOpponent();
+			setAsRemotePlayer();
 		}
 
 		update();
@@ -36,10 +36,20 @@ class Paddle extends Line {
 		this.relocate(position.x, position.y);
 	}
 	
-	private void move(double x, double y) {
+	/** 
+	 * This method will be called by other 
+	 * classes to update opponent paddles.
+	 * @param x
+	 * @param y
+	 */
+	void move(double x, double y) {
 		this.position.x = x;
 		this.position.y = y;
 		update();
+	}
+	
+	void move(Point location) {
+		move(location.x, location.y);
 	}
 	
 	private void move(KeyCode dir) {
@@ -61,7 +71,7 @@ class Paddle extends Line {
 		}
 	}
 
-	private void setAsPlayer() {
+	private void setAsLocalPlayer() {
 		this.isPlayer = true;
 		this.setStroke(Color.GREEN);
 
@@ -74,8 +84,16 @@ class Paddle extends Line {
 		});
 	}
 	
-	private void setAsOpponent() {
+	private void setAsRemotePlayer() {
 		this.isPlayer = false;
 		this.setStroke(Color.RED);
+	}
+	
+	public Point getLocation() {
+		if (!isPlayer) {
+			throw new RuntimeException("This really should only be called on local players' paddles yo...");
+		}
+		
+		return this.position;
 	}
 }

@@ -2,6 +2,7 @@ package gui;
 
 public class Point {
 	double x, y;
+	public int playerNumber = -1;
 
 	public Point(double x, double y){
 		this.x = x;
