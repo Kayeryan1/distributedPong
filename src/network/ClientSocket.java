@@ -19,8 +19,8 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		this.playerNumber = playerNumber;
 		try {
 			socket = new Socket(address, port);
-			input = new ObjectInputStream(socket.getInputStream());
 			output = new ObjectOutputStream(socket.getOutputStream());
+			input = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -30,9 +30,13 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		this.playerNumber = playerNumber;
 		this.socket = socket;
 		try {
-			input = new ObjectInputStream(socket.getInputStream());
 			output = new ObjectOutputStream(socket.getOutputStream());
+			output.writeObject("BOOP");
+			input = new ObjectInputStream(socket.getInputStream());
+			System.out.println((String)input.readObject());
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -41,7 +45,6 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		return new PlayerNetworkData(playerNumber, socket.getInetAddress().toString(), socket.getPort());
 	}
 	
-	//TODO: refactor these send and receive methods to just one method somehow
 	public void send(Point point) {
 		try {
 			output.writeObject(point);
