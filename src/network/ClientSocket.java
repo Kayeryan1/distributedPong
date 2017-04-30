@@ -32,6 +32,7 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		try {
 			output = new ObjectOutputStream(socket.getOutputStream());
 			output.writeObject("BOOP");
+			System.out.println("hey");
 			input = new ObjectInputStream(socket.getInputStream());
 			System.out.println((String)input.readObject());
 		} catch (IOException e) {

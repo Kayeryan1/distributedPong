@@ -9,7 +9,7 @@ public abstract class NetworkService {
 		final int numOpponents;
 
 		ClientSocket[] remotePlayerSockets;
-		PlayerNetworkData[] remotePlayerNetworkData;
+		PlayerNetworkData[] playerNetworkData;
 
 		int localPlayerID;
 		
@@ -20,7 +20,7 @@ public abstract class NetworkService {
 			this.numOpponents = numPlayers - 1;
 
 			remotePlayerSockets = new ClientSocket[numOpponents];
-			remotePlayerNetworkData =  new PlayerNetworkData[numOpponents];
+			playerNetworkData =  new PlayerNetworkData[numPlayers];
 		}
 		
 		public void broadcastLocation(Point point) {
