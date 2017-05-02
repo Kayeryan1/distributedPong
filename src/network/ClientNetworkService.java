@@ -15,12 +15,9 @@ public class ClientNetworkService extends NetworkService {
 			System.out.printf("Iteration %d \n\t recieved address %s \n\t port %d\n", i, data.address, data.port);
 			playerNetworkData[i] = data;
 			if (data.address.equals(remotePlayerSockets[0].getLocalAddress())) {
-<<<<<<< HEAD
 				System.out.println("This is my playerNumber "  + i);
-				this.localPlayerID = data.playerNumber;
-=======
+
 				this.setLocalPlayerID(data.playerNumber);
->>>>>>> 0c011516a254fdb324828edc4057b3b2314a3a53
 			}
 		}
 	}

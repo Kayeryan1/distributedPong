@@ -29,18 +29,11 @@ public class ClientGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		//TODO: grab all these variables using getParameters()
-<<<<<<< HEAD
-		final boolean isHost = false;
-		final String address = "10.0.0.22";
-		final int port = 15001;
-		final int numPlayers = 2;
-		playerNumber = 1;
-=======
+
 		final boolean isHost = Boolean.valueOf(getParameters().getRaw().get(0));
 		final String address = String.valueOf(getParameters().getRaw().get(1));
 		final int port = Integer.parseInt(getParameters().getRaw().get(2));
 		final int numPlayers = Integer.parseInt(getParameters().getRaw().get(3));
->>>>>>> 0c011516a254fdb324828edc4057b3b2314a3a53
 
 		if (isHost) {
 			service = new HostNetworkService(address, port, numPlayers);
@@ -58,13 +51,7 @@ public class ClientGUI extends Application {
 		primaryStage.show();
 
 		initializePaddles(root, 2);
-		
-<<<<<<< HEAD
-		initializePaddles(root, 2);
 
-		
-=======
->>>>>>> 0c011516a254fdb324828edc4057b3b2314a3a53
 		startGameLoop();
 	}
 	

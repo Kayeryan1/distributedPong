@@ -21,10 +21,7 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		try {
 			socket = new Socket(address, port);
 			output = new ObjectOutputStream(socket.getOutputStream());
-//			output.writeObject("non-host players booper\n\0");
-//			output.flush();
 			input = new ObjectInputStream(socket.getInputStream());
-			//System.out.println(input.readObject());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -36,15 +33,9 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		this.socket = socket;
 		try {
 			output = new ObjectOutputStream(socket.getOutputStream());
-<<<<<<< HEAD
-			output.writeObject("Host players BOOP");
-=======
+
 			output.flush();
-			//output.writeObject("INITIALIZE\n\0");
->>>>>>> 0c011516a254fdb324828edc4057b3b2314a3a53
-			System.out.println("hey");
-			//input = new ObjectInputStream(socket.getInputStream());
-			//System.out.println(input.readObject());
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -86,28 +77,17 @@ public class ClientSocket implements Comparable<ClientSocket> {
 	}
 	
 	public PlayerNetworkData receiveData() {
-<<<<<<< HEAD
-		if(input==null){
-			try {
-				input = new ObjectInputStream(socket.getInputStream());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-=======
+
 		if (input == null) {
 			try {
 				input = new ObjectInputStream(socket.getInputStream());
 			} catch (IOException e) {
->>>>>>> 0c011516a254fdb324828edc4057b3b2314a3a53
 				e.printStackTrace();
 			}
 		}
 		PlayerNetworkData data = null;
 		try {
 			data = (PlayerNetworkData)input.readObject();
-<<<<<<< HEAD
-			System.out.println(data.toString());
-=======
->>>>>>> 0c011516a254fdb324828edc4057b3b2314a3a53
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
