@@ -11,7 +11,7 @@ public abstract class NetworkService {
 		ClientSocket[] remotePlayerSockets;
 		PlayerNetworkData[] playerNetworkData;
 
-		int localPlayerID;
+		private int localPlayerID;
 		
 		public NetworkService(String hostAddress, int hostPort, int numPlayers) {
 			this.hostAddress = hostAddress;
@@ -35,5 +35,13 @@ public abstract class NetworkService {
 				opponentLocations[i] = remotePlayerSockets[i].receivePoint();
 			}
 			return opponentLocations;
+		}
+
+		public int getLocalPlayerID() {
+			return localPlayerID;
+		}
+
+		public void setLocalPlayerID(int localPlayerID) {
+			this.localPlayerID = localPlayerID;
 		}
 }

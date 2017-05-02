@@ -29,28 +29,29 @@ public class ClientGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		//TODO: grab all these variables using getParameters()
-		final boolean isHost = true;
-		final String address = "10.0.0.22";
-		final int port = 15001;
-		final int numPlayers = 2;
-		playerNumber = 0;
+		final boolean isHost = Boolean.valueOf(getParameters().getRaw().get(0));
+		final String address = String.valueOf(getParameters().getRaw().get(1));
+		final int port = Integer.parseInt(getParameters().getRaw().get(2));
+		final int numPlayers = Integer.parseInt(getParameters().getRaw().get(3));
 
 		if (isHost) {
 			service = new HostNetworkService(address, port, numPlayers);
 		} else {
 			service = new ClientNetworkService(address, port, numPlayers);
 		}
+		playerNumber = service.getLocalPlayerID();
 
 		primaryStage.setTitle("Distributed Pong –– Player " + (playerNumber + 1));
 
 		Pane root = new Pane();
 		root.setStyle("-fx-background-color: " + Color.RED);
-		initializePaddles(root, 2);
 
 		primaryStage.setScene(new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT));
 		primaryStage.show();
+
+		initializePaddles(root, 2);
 		
-		//startGameLoop();
+		startGameLoop();
 	}
 	
 	private void startGameLoop() {
@@ -100,6 +101,7 @@ public class ClientGUI extends Application {
 		paddles.add(paddleTwo);
 		root.getChildren().addAll(paddles);			// add paddles to GUI
 		paddles.get(playerNumber).requestFocus(); 	// request focus so listeners can receive key input
+		System.out.println(paddles.get(playerNumber).isFocused());
 	}
 	
 	public static void main(String[] args) {

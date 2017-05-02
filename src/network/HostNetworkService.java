@@ -9,7 +9,7 @@ public class HostNetworkService extends NetworkService {
 	public HostNetworkService(String hostAddress, int hostPort, int numPlayers) {
 		super(hostAddress, hostPort, numPlayers);
 		System.out.println("Got to here 0 ");
-		this.localPlayerID = 0;
+		this.setLocalPlayerID(0);
 		try {
 			listener = new ServerSocket(this.hostPort);
 			System.out.println("Got to here");
@@ -30,6 +30,11 @@ public class HostNetworkService extends NetworkService {
 					System.out.println("About to send: " + playerNetworkData[j].toString());
 					remotePlayerSockets[i].send(playerNetworkData[j]);
 					System.out.println("Got to here 1 for player " + i);
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 			System.out.println("Got to here 2 ");

@@ -74,7 +74,7 @@ class Paddle extends Line {
 	private void setAsLocalPlayer() {
 		this.isPlayer = true;
 		this.setStroke(Color.GREEN);
-
+		
 		/* Key listener that will, on a directional key press, move the paddle */
 		this.setOnKeyPressed((event) -> {
 			KeyCode direction = event.getCode();

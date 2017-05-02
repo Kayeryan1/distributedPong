@@ -9,14 +9,15 @@ import gui.Point;
 
 public class ClientSocket implements Comparable<ClientSocket> {
 	
-	private ObjectInputStream input;
+	private ObjectInputStream input = null;
 	private ObjectOutputStream output;
 	private Socket socket;
 	
-	private final int playerNumber;
+	private final int localPlayerID;
 	
+	/** Client player's constructor for sockets */
 	public ClientSocket(String address, int port, int playerNumber)  {
-		this.playerNumber = playerNumber;
+		this.localPlayerID = playerNumber;
 		try {
 			socket = new Socket(address, port);
 			output = new ObjectOutputStream(socket.getOutputStream());
@@ -28,29 +29,30 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		}
 	}
 	
+	/** Host player's constructor for sockets */
 	public ClientSocket(Socket socket, int playerNumber) {
-		this.playerNumber = playerNumber;
+		this.localPlayerID = playerNumber;
 		this.socket = socket;
 		try {
 			output = new ObjectOutputStream(socket.getOutputStream());
-			output.writeObject("BOOP");
+			output.flush();
+			//output.writeObject("INITIALIZE\n\0");
 			System.out.println("hey");
-			input = new ObjectInputStream(socket.getInputStream());
-			System.out.println((String)input.readObject());
+			//input = new ObjectInputStream(socket.getInputStream());
+			//System.out.println(input.readObject());
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public PlayerNetworkData getPlayerNetworkData() {
-		return new PlayerNetworkData(playerNumber, socket.getInetAddress().toString(), socket.getPort());
+		return new PlayerNetworkData(localPlayerID, socket.getInetAddress().toString(), socket.getPort());
 	}
 	
 	public void send(Point point) {
 		try {
-			output.writeObject(point);
+			output.writeUnshared(point);
+			output.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -58,8 +60,8 @@ public class ClientSocket implements Comparable<ClientSocket> {
 	
 	public void send(PlayerNetworkData data) {
 		try {
-			output.writeObject(data);
-			output.flush();
+			output.writeUnshared(data);
+			//output.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -79,10 +81,16 @@ public class ClientSocket implements Comparable<ClientSocket> {
 	}
 	
 	public PlayerNetworkData receiveData() {
+		if (input == null) {
+			try {
+				input = new ObjectInputStream(socket.getInputStream());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		PlayerNetworkData data = null;
 		try {
 			data = (PlayerNetworkData)input.readObject();
-			System.out.println(input.readObject().toString());
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -106,8 +114,8 @@ public class ClientSocket implements Comparable<ClientSocket> {
 
 	@Override
 	public int compareTo(ClientSocket o) {
-		Integer thisNum = playerNumber;
-		Integer otherNum = o.playerNumber;
+		Integer thisNum = localPlayerID;
+		Integer otherNum = o.localPlayerID;
 		return thisNum.compareTo(otherNum);
 	}
 

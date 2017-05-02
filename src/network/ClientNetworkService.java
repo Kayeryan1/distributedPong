@@ -13,7 +13,7 @@ public class ClientNetworkService extends NetworkService {
 			PlayerNetworkData data = remotePlayerSockets[0].receiveData();
 			playerNetworkData[i] = data;
 			if (data.address.equals(remotePlayerSockets[0].getLocalAddress())) {
-				this.localPlayerID = data.playerNumber;
+				this.setLocalPlayerID(data.playerNumber);
 			}
 		}
 	}
