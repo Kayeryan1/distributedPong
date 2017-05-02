@@ -9,7 +9,7 @@ import gui.Point;
 
 public class ClientSocket implements Comparable<ClientSocket> {
 	
-	private ObjectInputStream input;
+	private ObjectInputStream input = null;
 	private ObjectOutputStream output;
 	private Socket socket;
 	
@@ -34,7 +34,7 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		this.socket = socket;
 		try {
 			output = new ObjectOutputStream(socket.getOutputStream());
-			output.writeObject("BOOP");
+			output.writeObject("Host players BOOP");
 			System.out.println("hey");
 			input = new ObjectInputStream(socket.getInputStream());
 			System.out.println((String)input.readObject());
