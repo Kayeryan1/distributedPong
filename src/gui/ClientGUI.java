@@ -34,15 +34,14 @@ public class ClientGUI extends Application {
 		final String address = String.valueOf(getParameters().getRaw().get(1));
 		final int port = Integer.parseInt(getParameters().getRaw().get(2));
 		int numPlayers = Integer.parseInt(getParameters().getRaw().get(3));
-		numPlayers = 2;
 
 
-//		if (isHost) {
-//			service = new HostNetworkService(address, port, numPlayers);
-//		} else {
-//			service = new ClientNetworkService(address, port, numPlayers);
-//		}
-//		playerNumber = service.getLocalPlayerID();
+		if (isHost) {
+			service = new HostNetworkService(address, port, numPlayers);
+		} else {
+			service = new ClientNetworkService(address, port, numPlayers);
+		}
+		playerNumber = service.getLocalPlayerID();
 
 		primaryStage.setTitle("Distributed Pong –– Player " + (playerNumber + 1));
 
