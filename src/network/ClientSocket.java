@@ -20,10 +20,11 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		try {
 			socket = new Socket(address, port);
 			output = new ObjectOutputStream(socket.getOutputStream());
-			output.writeObject("BOOP");
+//			output.writeObject("non-host players booper\n\0");
+//			output.flush();
 			input = new ObjectInputStream(socket.getInputStream());
-			input.readObject();
-		} catch (IOException | ClassNotFoundException e) {
+			//System.out.println(input.readObject());
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -79,10 +80,18 @@ public class ClientSocket implements Comparable<ClientSocket> {
 	}
 	
 	public PlayerNetworkData receiveData() {
+		if(input==null){
+			try {
+				input = new ObjectInputStream(socket.getInputStream());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		PlayerNetworkData data = null;
 		try {
 			data = (PlayerNetworkData)input.readObject();
-			System.out.println(input.readObject().toString());
+			System.out.println(data.toString());
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
