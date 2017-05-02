@@ -38,7 +38,7 @@ public class ClientSocket implements Comparable<ClientSocket> {
 			output.flush();
 			//output.writeObject("INITIALIZE\n\0");
 			System.out.println("hey");
-			//input = new ObjectInputStream(socket.getInputStream());
+			input = new ObjectInputStream(socket.getInputStream());
 			//System.out.println(input.readObject());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -68,6 +68,13 @@ public class ClientSocket implements Comparable<ClientSocket> {
 	}
 	
 	public Point receivePoint() {
+//		if (input == null) {
+//			try {
+//				input = new ObjectInputStream(socket.getInputStream());
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		Point toReturn = null;
 		try {
 			toReturn = ((Point)input.readObject());

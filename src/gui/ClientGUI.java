@@ -51,7 +51,7 @@ public class ClientGUI extends Application {
 
 		initializePaddles(root, 2);
 		
-		startGameLoop();
+		//startGameLoop();
 	}
 	
 	private void startGameLoop() {
@@ -82,26 +82,19 @@ public class ClientGUI extends Application {
 	}
 	
 	private void initializePaddles(Pane root, int numPlayers) {
-		//TODO: generate paddles by numPlayers
-		Paddle paddleOne = new Paddle(
-				PADDLE_PADDING, 					// x position
-				WINDOW_HEIGHT/2, 					// y position
-				PaddleOrientation.Vertical, 		// orientation (determines which edge on screen to position at)
-				true								// if true, this is the local player's paddle
-		);
-		Paddle paddleTwo = new Paddle(
-				WINDOW_WIDTH-PADDLE_PADDING, 
-				WINDOW_HEIGHT/2, 
-				PaddleOrientation.Vertical, 
-				false
-		);
+		for (int i = 0; i < numPlayers; i++) {
+			Paddle paddle = new Paddle(
+					WINDOW_WIDTH-PADDLE_PADDING, 
+					WINDOW_HEIGHT/2, 
+					(i < 2) ? PaddleOrientation.Vertical : PaddleOrientation.Horizontal,
+					(i == playerNumber) ? true : false
+			);
+			paddles.add(paddle);
+		}
 		
 		// store the paddles for game loop
-		paddles.add(paddleOne);
-		paddles.add(paddleTwo);
 		root.getChildren().addAll(paddles);			// add paddles to GUI
 		paddles.get(playerNumber).requestFocus(); 	// request focus so listeners can receive key input
-		System.out.println(paddles.get(playerNumber).isFocused());
 	}
 	
 	public static void main(String[] args) {
