@@ -33,14 +33,16 @@ public class ClientGUI extends Application {
 		final boolean isHost = Boolean.valueOf(getParameters().getRaw().get(0));
 		final String address = String.valueOf(getParameters().getRaw().get(1));
 		final int port = Integer.parseInt(getParameters().getRaw().get(2));
-		final int numPlayers = Integer.parseInt(getParameters().getRaw().get(3));
+		int numPlayers = Integer.parseInt(getParameters().getRaw().get(3));
+		numPlayers = 2;
 
-		if (isHost) {
-			service = new HostNetworkService(address, port, numPlayers);
-		} else {
-			service = new ClientNetworkService(address, port, numPlayers);
-		}
-		playerNumber = service.getLocalPlayerID();
+
+//		if (isHost) {
+//			service = new HostNetworkService(address, port, numPlayers);
+//		} else {
+//			service = new ClientNetworkService(address, port, numPlayers);
+//		}
+//		playerNumber = service.getLocalPlayerID();
 
 		primaryStage.setTitle("Distributed Pong –– Player " + (playerNumber + 1));
 
@@ -50,7 +52,7 @@ public class ClientGUI extends Application {
 		primaryStage.setScene(new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT));
 		primaryStage.show();
 
-		initializePaddles(root, 2);
+		initializePaddles(root, numPlayers);
 		//startGameLoop();
 	}
 	
@@ -83,9 +85,28 @@ public class ClientGUI extends Application {
 	
 	private void initializePaddles(Pane root, int numPlayers) {
 		for (int i = 0; i < numPlayers; i++) {
+			int x = 0, y = 0;
+			switch (i) {
+			case 0:
+				x = PADDLE_PADDING;
+				y = WINDOW_HEIGHT/2;
+				break;
+			case 1:
+				x = WINDOW_WIDTH - PADDLE_PADDING;
+				y = WINDOW_HEIGHT/2;
+				break;
+			case 2: 
+				x = WINDOW_WIDTH / 2;
+				y = PADDLE_PADDING;
+				break;
+			case 3:
+				x = WINDOW_WIDTH / 2;
+				y = WINDOW_HEIGHT-PADDLE_PADDING;
+				break;
+			}
 			Paddle paddle = new Paddle(
-					WINDOW_WIDTH-PADDLE_PADDING, 
-					WINDOW_HEIGHT/2, 
+					x,
+					y,
 					(i < 2) ? PaddleOrientation.Vertical : PaddleOrientation.Horizontal,
 					(i == playerNumber) ? true : false
 			);
