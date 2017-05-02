@@ -49,37 +49,44 @@ public class ClientGUI extends Application {
 		root.setStyle("-fx-background-color: " + Color.RED);
 
 		primaryStage.setScene(new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT));
+		System.out.println("hey2");
 		primaryStage.show();
 
 		initializePaddles(root, numPlayers);
-		//startGameLoop();
+		System.out.println("hey");
+		startGameLoop();
 	}
 	
 	private void startGameLoop() {
-		while (!gameOver) {
+		Runnable runner = () -> {
+			while (!gameOver) {
 
-			// broadcast point with id set
-			Point myPoint = paddles.get(playerNumber).getLocation();
-			myPoint.playerNumber = playerNumber;
-			service.broadcastLocation(myPoint);
-			
-			//TODO: What happens when a client sends a message, but the receiver isn't listening yet? This might be a problem.
+				// broadcast point with id set
+				Point myPoint = paddles.get(playerNumber).getLocation();
+				myPoint.playerNumber = playerNumber;
+				service.broadcastLocation(myPoint);
+				System.out.println(myPoint);
+				
+				//TODO: What happens when a client sends a message, but the receiver isn't listening yet? This might be a problem.
 
-			// wait for all locations of opponents
-			Point[] locations = service.receiveRemotePlayerLocations();
+				// wait for all locations of opponents
+				Point[] locations = service.receiveRemotePlayerLocations();
+				System.out.println(locations);
 
-			// move all the remote player's paddles with new points
-			for (Point point : locations) {
-				int playerID = point.playerNumber;
-				paddles.get(playerID).move(point);
+				// move all the remote player's paddles with new points
+				for (Point point : locations) {
+					int playerID = point.playerNumber;
+					paddles.get(playerID).move(point);
+				}
+				
+				// detect collisions
+				
+				// check for game score
+				
+				// move ball ...
 			}
-			
-			// detect collisions
-			
-			// check for game score
-			
-			// move ball ...
-		}
+		};
+		new Thread(runner).start();
 	}
 	
 	private void initializePaddles(Pane root, int numPlayers) {
