@@ -2,9 +2,10 @@ package network;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.util.Arrays;
 
 public class HostNetworkService extends NetworkService {
-	private ServerSocket listener;
+	//private ServerSocket listener;
 
 	public HostNetworkService(String hostAddress, int hostPort, int numPlayers) {
 		super(hostAddress, hostPort, numPlayers);
@@ -40,6 +41,16 @@ public class HostNetworkService extends NetworkService {
 			System.out.println("Got to here 2 ");
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		
+		Arrays.sort(remotePlayerSockets);
+		
+		/* Coordinate the connections between the remaining players */
+		for (int i = 0; i < remotePlayerSockets.length; i++) {
+			int idOfReadyPlayer = remotePlayerSockets[i].receive();
+			for (int j = i+1; j < remotePlayerSockets.length; j++) {
+				remotePlayerSockets[j].signal(idOfReadyPlayer);
+			}
 		}
 	}
 }

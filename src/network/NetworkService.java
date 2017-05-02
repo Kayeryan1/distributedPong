@@ -1,5 +1,7 @@
 package network;
 
+import java.net.ServerSocket;
+
 import gui.Point;
 
 public abstract class NetworkService {
@@ -12,6 +14,8 @@ public abstract class NetworkService {
 		PlayerNetworkData[] playerNetworkData;
 
 		private int localPlayerID;
+		
+		protected ServerSocket listener;
 		
 		public NetworkService(String hostAddress, int hostPort, int numPlayers) {
 			this.hostAddress = hostAddress;

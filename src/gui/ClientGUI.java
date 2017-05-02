@@ -1,6 +1,7 @@
 package gui;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.sun.prism.paint.Color;
@@ -65,13 +66,12 @@ public class ClientGUI extends Application {
 				Point myPoint = paddles.get(playerNumber).getLocation();
 				myPoint.playerNumber = playerNumber;
 				service.broadcastLocation(myPoint);
-				System.out.println(myPoint);
 				
 				//TODO: What happens when a client sends a message, but the receiver isn't listening yet? This might be a problem.
 
 				// wait for all locations of opponents
 				Point[] locations = service.receiveRemotePlayerLocations();
-				System.out.println(locations);
+				System.out.println(Arrays.toString(locations));
 
 				// move all the remote player's paddles with new points
 				for (Point point : locations) {

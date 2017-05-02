@@ -47,7 +47,7 @@ public class ClientSocket implements Comparable<ClientSocket> {
 	public void send(Point point) {
 		try {
 			output.writeUnshared(point);
-			output.flush();
+			//output.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -62,10 +62,30 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		}
 	}
 	
+	public void signal(Integer sourcePlayerID) {
+		try {
+			output.writeUnshared(sourcePlayerID);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	public int receive() {
+		int retVal = -1;
+		try {
+			retVal = input.readInt();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return retVal;
+	}
+	
 	public Point receivePoint() {
 		Point toReturn = null;
 		try {
-			toReturn = ((Point)input.readObject());
+			Object obj = input.readObject();
+			System.out.println("received from client = " + obj.toString());
+			toReturn = ((Point)obj);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -86,7 +106,9 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		}
 		PlayerNetworkData data = null;
 		try {
-			data = (PlayerNetworkData)input.readObject();
+			Object obj = input.readObject();
+			System.out.println("received from client = " + obj.toString());
+			data = (PlayerNetworkData)obj;
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
