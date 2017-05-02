@@ -21,10 +21,8 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		try {
 			socket = new Socket(address, port);
 			output = new ObjectOutputStream(socket.getOutputStream());
-			output.writeObject("BOOP");
 			input = new ObjectInputStream(socket.getInputStream());
-			input.readObject();
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -36,10 +34,7 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		try {
 			output = new ObjectOutputStream(socket.getOutputStream());
 			output.flush();
-			//output.writeObject("INITIALIZE\n\0");
-			System.out.println("hey");
 			input = new ObjectInputStream(socket.getInputStream());
-			//System.out.println(input.readObject());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -68,13 +63,6 @@ public class ClientSocket implements Comparable<ClientSocket> {
 	}
 	
 	public Point receivePoint() {
-//		if (input == null) {
-//			try {
-//				input = new ObjectInputStream(socket.getInputStream());
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
 		Point toReturn = null;
 		try {
 			toReturn = ((Point)input.readObject());
@@ -88,6 +76,7 @@ public class ClientSocket implements Comparable<ClientSocket> {
 	}
 	
 	public PlayerNetworkData receiveData() {
+
 		if (input == null) {
 			try {
 				input = new ObjectInputStream(socket.getInputStream());

@@ -29,6 +29,7 @@ public class ClientGUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		//TODO: grab all these variables using getParameters()
+
 		final boolean isHost = Boolean.valueOf(getParameters().getRaw().get(0));
 		final String address = String.valueOf(getParameters().getRaw().get(1));
 		final int port = Integer.parseInt(getParameters().getRaw().get(2));
@@ -50,7 +51,6 @@ public class ClientGUI extends Application {
 		primaryStage.show();
 
 		initializePaddles(root, 2);
-		
 		//startGameLoop();
 	}
 	

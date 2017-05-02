@@ -9,10 +9,14 @@ public class ClientNetworkService extends NetworkService {
 		playerNetworkData[0] = new PlayerNetworkData(0, this.hostAddress, this.hostPort);
 		
 		// wait for network data
-		for (int i = 1; i <= this.numOpponents; i++) {
+		for (int i = 0; i < this.numPlayers; i++) {
+			System.out.println(i);
 			PlayerNetworkData data = remotePlayerSockets[0].receiveData();
+			System.out.printf("Iteration %d \n\t recieved address %s \n\t port %d\n", i, data.address, data.port);
 			playerNetworkData[i] = data;
 			if (data.address.equals(remotePlayerSockets[0].getLocalAddress())) {
+				System.out.println("This is my playerNumber "  + i);
+
 				this.setLocalPlayerID(data.playerNumber);
 			}
 		}
