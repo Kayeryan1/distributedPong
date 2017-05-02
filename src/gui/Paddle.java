@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -25,7 +26,7 @@ class Paddle extends Line {
 			setAsRemotePlayer();
 		}
 
-		update();
+		move(x, y);
 	}
 	
 	private void update() {
@@ -43,9 +44,11 @@ class Paddle extends Line {
 	 * @param y
 	 */
 	void move(double x, double y) {
-		this.position.x = x;
-		this.position.y = y;
-		update();
+		Platform.runLater(() -> {
+			this.position.x = x;
+			this.position.y = y;
+			update();
+		});
 	}
 	
 	void move(Point location) {
