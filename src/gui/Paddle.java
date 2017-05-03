@@ -65,16 +65,24 @@ class Paddle extends Line {
 	private void move(KeyCode dir) {
 		switch (dir) {
 		case UP:
-			move(position.x, position.y - MOVE_DELTA);
+			if (position.y > (length)) {
+				move(position.x, position.y - MOVE_DELTA);
+			}
 			break;
 		case DOWN:
-			move(position.x, position.y + MOVE_DELTA);
+			if (position.y < (ClientGUI.WINDOW_HEIGHT - length)) {
+				move(position.x, position.y + MOVE_DELTA);
+			}
 			break;
 		case LEFT:
-			move(position.x - MOVE_DELTA, position.y);
+			if (position.x > length) {
+				move(position.x - MOVE_DELTA, position.y);
+			}
 			break;
 		case RIGHT:
-			move(position.x + MOVE_DELTA, position.y);
+			if (position.x < (ClientGUI.WINDOW_WIDTH - length)) {
+				move(position.x + MOVE_DELTA, position.y);
+			}
 			break;
 		default:
 			break;
