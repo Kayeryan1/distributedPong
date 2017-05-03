@@ -7,7 +7,7 @@ class Ball extends Circle {
 	final Point position;
 	final Point velocity;
 	final static double MAX_ANGLE = 5 * (Math.PI / 12);
-	final static double BALL_SPEED = 5;
+	final static double BALL_SPEED = 0.1;
 	
 	public Ball(double x, double y, double velX, double velY, double radius) {
 		this.position = new Point(x, y);

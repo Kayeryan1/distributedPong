@@ -103,7 +103,7 @@ public class ClientGUI extends Application {
 				pongBall.move();
 			}
 		};
-		//new Thread(gameLoop).start();
+		new Thread(gameLoop).start();
 	}
 	
 	private void processBallBounces() {
@@ -160,7 +160,7 @@ public class ClientGUI extends Application {
 	}
 	
 	public Ball initializeBall(Pane root) {
-		int initialXVelocity = -5;
+		double initialXVelocity = -1 * Ball.BALL_SPEED;
 		int initialYVelocity = 0;
 		Ball ball = new Ball(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, initialXVelocity, initialYVelocity, BALL_RADIUS);
 		root.getChildren().add(ball);

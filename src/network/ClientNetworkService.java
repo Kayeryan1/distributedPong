@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 public class ClientNetworkService extends NetworkService {
 	
-
 	public ClientNetworkService(String hostAddress, int hostPort, int numPlayers) {
 		super(hostAddress, hostPort, numPlayers);
 		// instantiate and connect with server
