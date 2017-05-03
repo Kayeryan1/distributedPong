@@ -130,7 +130,7 @@ public class ClientSocket implements Comparable<ClientSocket> {
 	}
 
 	public String getLocalAddress() {
-		return socket.getLocalAddress().toString();
+		return socket.getLocalAddress().toString().replace("/", "");
 	}
 
 	@Override
