@@ -36,7 +36,7 @@ public class ClientNetworkService extends NetworkService {
 			remotePlayerSockets[readyPlayerID] = new ClientSocket(playerNetworkData[readyPlayerID].address, hostPort, getLocalPlayerID());
 		}
 
-		Arrays.sort(remotePlayerSockets);
+		//Arrays.sort(remotePlayerSockets);
 		
 		// set up server socket for connections with other players (unless you're the last client)
 		if (this.getLocalPlayerID() < (numPlayers-1)) {

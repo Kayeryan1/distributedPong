@@ -55,7 +55,7 @@ public class ClientGUI extends Application {
 
 		initializePaddles(root, numPlayers);
 		System.out.println("hey");
-		startGameLoop();
+		//startGameLoop();
 	}
 	
 	private void startGameLoop() {
