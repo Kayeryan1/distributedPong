@@ -30,10 +30,17 @@ class Paddle extends Line {
 	}
 	
 	private void update() {
-		this.setStartX(position.x);
-		this.setStartY(position.y - (length/2));
-		this.setEndX(position.x);
-		this.setEndY(position.y + (length/2));
+		if (orientation == PaddleOrientation.Vertical) {
+			this.setStartX(position.x);
+			this.setStartY(position.y - (length/2));
+			this.setEndX(position.x);
+			this.setEndY(position.y + (length/2));
+		} else {
+			this.setStartX(position.x - (length/2));
+			this.setStartY(position.y);
+			this.setEndX(position.x + (length/2));
+			this.setEndY(position.y);
+		}
 		this.relocate(position.x, position.y);
 	}
 	
