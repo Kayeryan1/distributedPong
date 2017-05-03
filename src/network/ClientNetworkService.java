@@ -1,7 +1,9 @@
 package network;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Arrays;
 
 public class ClientNetworkService extends NetworkService {
@@ -36,7 +38,37 @@ public class ClientNetworkService extends NetworkService {
 		}
 		
 		// set up server socket for connections with other players (unless you're the last client)
+		if (this.getLocalPlayerID() < (numPlayers-1)) {
+			try {
+				this.listener = new ServerSocket(hostPort);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		// signal server you are ready to accept connections from clients above your id
+		hostSocket.signal(getLocalPlayerID());
+		
+		// accept connections from said clients
+		for (int i = 0; i < numPlayers - getLocalPlayerID() + 1; i++) {
+			Socket socket;
+			try {
+				socket = listener.accept();
+				String address = socket.getInetAddress().toString();
+				int clientID = -1;
+				for (PlayerNetworkData data : playerNetworkData) {
+					if (data.address.equals(address)) {
+						clientID = data.playerNumber;
+					}
+				}
+				
+				assert clientID >= 0;
+
+				remotePlayerSockets[clientID] = new ClientSocket(socket, clientID);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

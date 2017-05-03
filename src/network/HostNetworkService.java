@@ -51,6 +51,8 @@ public class HostNetworkService extends NetworkService {
 			for (int j = i+1; j < remotePlayerSockets.length; j++) {
 				remotePlayerSockets[j].signal(idOfReadyPlayer);
 			}
+			
+			
 		}
 	}
 }
