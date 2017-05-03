@@ -29,13 +29,14 @@ public class ClientNetworkService extends NetworkService {
 		}
 		
 		Arrays.sort(playerNetworkData);
-		Arrays.sort(remotePlayerSockets);
 		
 		// wait for server to signal you to connect to any players lower in id
 		for (int i = 1; i < getLocalPlayerID(); i++) {
 			int readyPlayerID = hostSocket.receive();
 			remotePlayerSockets[readyPlayerID] = new ClientSocket(playerNetworkData[readyPlayerID].address, hostPort, getLocalPlayerID());
 		}
+
+		Arrays.sort(remotePlayerSockets);
 		
 		// set up server socket for connections with other players (unless you're the last client)
 		if (this.getLocalPlayerID() < (numPlayers-1)) {
