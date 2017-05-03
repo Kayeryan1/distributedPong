@@ -87,7 +87,6 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		Point toReturn = null;
 		try {
 			Object obj = input.readObject();
-			System.out.println("received from client = " + obj.toString());
 			toReturn = ((Point)obj);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -110,7 +109,6 @@ public class ClientSocket implements Comparable<ClientSocket> {
 		PlayerNetworkData data = null;
 		try {
 			Object obj = input.readObject();
-			System.out.println("received from client = " + obj.toString());
 			data = (PlayerNetworkData)obj;
 
 		} catch (ClassNotFoundException e) {

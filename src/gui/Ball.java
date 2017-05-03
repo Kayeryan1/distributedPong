@@ -7,7 +7,7 @@ class Ball extends Circle {
 	final Point position;
 	final Point velocity;
 	final static double MAX_ANGLE = 5 * (Math.PI / 12);
-	final static double BALL_SPEED = 0.1;
+	final static double BALL_SPEED = 0.75;
 	
 	public Ball(double x, double y, double velX, double velY, double radius) {
 		this.position = new Point(x, y);
@@ -44,6 +44,9 @@ class Ball extends Circle {
 			
 			this.velocity.x = ballVx;
 			this.velocity.y = ballVy;
+			System.out.println("BOUNCE! off of " + paddle.position.x);
+			System.out.println("\tVelocity X = " + this.velocity.x);
+			System.out.println("\tVelocity Y = " + this.velocity.y);
 		}
 	}
 	
