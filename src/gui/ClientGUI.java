@@ -55,7 +55,7 @@ public class ClientGUI extends Application {
 
 		initializePaddles(root, numPlayers);
 		System.out.println("hey");
-		//startGameLoop();
+		startGameLoop();
 	}
 	
 	private void startGameLoop() {
@@ -71,7 +71,6 @@ public class ClientGUI extends Application {
 
 				// wait for all locations of opponents
 				Point[] locations = service.receiveRemotePlayerLocations();
-				System.out.println(Arrays.toString(locations));
 
 				// move all the remote player's paddles with new points
 				for (Point point : locations) {
