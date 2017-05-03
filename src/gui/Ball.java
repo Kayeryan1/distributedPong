@@ -30,7 +30,9 @@ class Ball extends Circle {
 			double angle = shiftedIntersectX * MAX_ANGLE;
 			double ballVx = BALL_SPEED * (-1 * Math.sin(angle));
 			double ballVy = BALL_SPEED * Math.cos(angle);
-			
+			if (paddle.position.y == ClientGUI.WINDOW_HEIGHT-ClientGUI.PADDLE_PADDING) {
+				ballVy *= -1;
+			}
 			this.velocity.x = ballVx;
 			this.velocity.y = ballVy;
 		} else {
@@ -40,6 +42,9 @@ class Ball extends Circle {
 			double shiftedIntersectY = (relIntersectY / (normalizer));
 			double angle = shiftedIntersectY * MAX_ANGLE;
 			double ballVx = BALL_SPEED * Math.cos(angle);
+			if (paddle.position.x == ClientGUI.WINDOW_WIDTH-ClientGUI.PADDLE_PADDING) {
+				ballVx *= -1;
+			}
 			double ballVy = BALL_SPEED * (-1 * Math.sin(angle));
 			
 			this.velocity.x = ballVx;
