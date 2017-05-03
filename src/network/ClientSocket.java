@@ -1,5 +1,6 @@
 package network;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -71,10 +72,12 @@ public class ClientSocket implements Comparable<ClientSocket> {
 	}
 	
 	public int receive() {
-		int retVal = -1;
+		Integer retVal = -1;
 		try {
-			retVal = input.readInt();
+			retVal = (Integer)input.readObject();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		return retVal;

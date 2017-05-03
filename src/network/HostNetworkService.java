@@ -48,6 +48,7 @@ public class HostNetworkService extends NetworkService {
 		/* Coordinate the connections between the remaining players */
 		for (int i = 0; i < remotePlayerSockets.length; i++) {
 			int idOfReadyPlayer = remotePlayerSockets[i].receive();
+			System.out.println("RECEIVED ID = " + idOfReadyPlayer);
 			for (int j = i+1; j < remotePlayerSockets.length; j++) {
 				remotePlayerSockets[j].signal(idOfReadyPlayer);
 			}

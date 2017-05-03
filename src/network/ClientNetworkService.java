@@ -50,7 +50,7 @@ public class ClientNetworkService extends NetworkService {
 		hostSocket.signal(getLocalPlayerID());
 		
 		// accept connections from said clients
-		for (int i = 0; i < numPlayers - getLocalPlayerID() + 1; i++) {
+		for (int i = 0; i < (numPlayers - (getLocalPlayerID() + 1)); i++) {
 			Socket socket;
 			try {
 				socket = listener.accept();
