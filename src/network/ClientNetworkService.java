@@ -65,7 +65,7 @@ public class ClientNetworkService extends NetworkService {
 					
 					assert clientID >= 0;
 
-					remotePlayerSockets[clientID] = new ClientSocket(socket, clientID);
+					remotePlayerSockets[clientID-1] = new ClientSocket(socket, clientID);
 
 				} catch (IOException e) {
 					e.printStackTrace();
