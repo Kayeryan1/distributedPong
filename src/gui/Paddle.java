@@ -7,8 +7,8 @@ import javafx.scene.shape.Line;
 
 class Paddle extends Line {
 	private final int width, length;
-	private final PaddleOrientation orientation;
-	private final Point position;
+	final PaddleOrientation orientation;
+	final Point position;
 	private boolean isPlayer;
 	
 	private static final int MOVE_DELTA = 15;	// units the paddle moves when a valid direction key is pressed

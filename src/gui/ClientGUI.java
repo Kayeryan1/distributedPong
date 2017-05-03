@@ -20,8 +20,10 @@ public class ClientGUI extends Application {
 	final static int WINDOW_WIDTH = 500;
 	final static int WINDOW_HEIGHT = 420;
 	final static int PADDLE_PADDING = 15;	// margin between screen edge and paddles
+	final static int BALL_RADIUS = PADDLE_LENGTH/7;
 
 	private final List<Paddle> paddles = new ArrayList<>();
+	private Ball pongBall;
 	private NetworkService service;
 	private int playerNumber = 0;
 	
@@ -54,12 +56,26 @@ public class ClientGUI extends Application {
 		primaryStage.show();
 
 		initializePaddles(root, numPlayers);
+		this.pongBall = initializeBall(root);
 		System.out.println("hey");
 		startGameLoop();
 	}
 	
 	private void startGameLoop() {
-		Runnable runner = () -> {
+//		Runnable ballAnimator = () -> {
+//			while (true) {
+//				processBallBounces();
+//				pongBall.move();
+//				try {
+//					Thread.sleep(50);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		};
+//		new Thread(ballAnimator).start();
+
+		Runnable gameLoop = () -> {
 			while (!gameOver) {
 
 				// broadcast point with id set
@@ -79,13 +95,33 @@ public class ClientGUI extends Application {
 				}
 				
 				// detect collisions
+				processBallBounces();
 				
 				// check for game score
 				
 				// move ball ...
+				pongBall.move();
 			}
 		};
-		new Thread(runner).start();
+		//new Thread(gameLoop).start();
+	}
+	
+	private void processBallBounces() {
+		double ballX = pongBall.position.x;
+		double ballY = pongBall.position.y;
+		for (Paddle paddle : paddles) {
+			double paddleX = paddle.position.x;
+			double paddleY = paddle.position.y;
+			if (paddle.orientation == PaddleOrientation.Horizontal) {
+				if (Math.abs(ballX - paddleX) <= (PADDLE_LENGTH/2 + (BALL_RADIUS * 4)) && Math.abs(paddleY-ballY) <= BALL_RADIUS) {
+					pongBall.paddleBounce(paddle);
+				}
+			} else {
+				if (Math.abs(ballY - paddleY) <= ((PADDLE_LENGTH/2) + (BALL_RADIUS * 4)) && Math.abs(paddleX-ballX) <= BALL_RADIUS) {
+					pongBall.paddleBounce(paddle);
+				}
+			}
+		}
 	}
 	
 	private void initializePaddles(Pane root, int numPlayers) {
@@ -121,6 +157,14 @@ public class ClientGUI extends Application {
 		// store the paddles for game loop
 		root.getChildren().addAll(paddles);			// add paddles to GUI
 		paddles.get(playerNumber).requestFocus(); 	// request focus so listeners can receive key input
+	}
+	
+	public Ball initializeBall(Pane root) {
+		int initialXVelocity = -5;
+		int initialYVelocity = 0;
+		Ball ball = new Ball(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, initialXVelocity, initialYVelocity, BALL_RADIUS);
+		root.getChildren().add(ball);
+		return ball;
 	}
 	
 	public static void main(String[] args) {
