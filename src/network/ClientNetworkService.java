@@ -46,30 +46,30 @@ public class ClientNetworkService extends NetworkService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
 		
-		// signal server you are ready to accept connections from clients above your id
-		hostSocket.signal(getLocalPlayerID());
-		
-		// accept connections from said clients
-		for (int i = 0; i < (numPlayers - (getLocalPlayerID() + 1)); i++) {
-			Socket socket;
-			try {
-				socket = listener.accept();
-				String address = socket.getInetAddress().toString().replaceAll("/", "");
-				int clientID = -1;
-				for (PlayerNetworkData data : playerNetworkData) {
-					if (data.address.equals(address)) {
-						clientID = data.playerNumber;
+			// signal server you are ready to accept connections from clients above your id
+			hostSocket.signal(getLocalPlayerID());
+			
+			// accept connections from said clients
+			for (int i = 0; i < (numPlayers - (getLocalPlayerID() + 1)); i++) {
+				Socket socket;
+				try {
+					socket = listener.accept();
+					String address = socket.getInetAddress().toString().replaceAll("/", "");
+					int clientID = -1;
+					for (PlayerNetworkData data : playerNetworkData) {
+						if (data.address.equals(address)) {
+							clientID = data.playerNumber;
+						}
 					}
+					
+					assert clientID >= 0;
+
+					remotePlayerSockets[clientID] = new ClientSocket(socket, clientID);
+
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-				
-				assert clientID >= 0;
-
-				remotePlayerSockets[clientID] = new ClientSocket(socket, clientID);
-
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		}
 	}
