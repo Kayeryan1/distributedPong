@@ -12,4 +12,11 @@ class Ball extends Circle {
 		
 		this.setRadius(radius);
 	}
+	
+	public void wallBounce(){
+		this.velocity.x *= -1;
+		this.velocity.y *= -1;
+	}
+	
+	
 }
