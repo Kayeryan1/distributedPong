@@ -26,7 +26,7 @@ public class ClientGUI extends Application {
 	private Ball pongBall;
 	private NetworkService service;
 	private int playerNumber = 0;
-	
+	private int lastBounceID = -1;
 	private boolean gameOver = false;
 	
 	@Override
@@ -109,18 +109,26 @@ public class ClientGUI extends Application {
 	private void processBallBounces() {
 		double ballX = pongBall.position.x;
 		double ballY = pongBall.position.y;
+		int i = 0;
 		for (Paddle paddle : paddles) {
 			double paddleX = paddle.position.x;
 			double paddleY = paddle.position.y;
 			if (paddle.orientation == PaddleOrientation.Horizontal) {
-				if (Math.abs(ballX - paddleX) <= (PADDLE_LENGTH/2 + (BALL_RADIUS * 4)) && Math.abs(paddleY-ballY) <= BALL_RADIUS) {
-					pongBall.paddleBounce(paddle);
+				if (Math.abs(ballX - paddleX) <= (PADDLE_LENGTH/2 + (BALL_RADIUS * 1)) && Math.abs(paddleY-ballY) <= BALL_RADIUS) {
+					if (lastBounceID != i) {
+						pongBall.paddleBounce(paddle);
+					}
+					lastBounceID = i;
 				}
 			} else {
-				if (Math.abs(ballY - paddleY) <= ((PADDLE_LENGTH/2) + (BALL_RADIUS * 4)) && Math.abs(paddleX-ballX) <= BALL_RADIUS) {
-					pongBall.paddleBounce(paddle);
+				if (Math.abs(ballY - paddleY) <= ((PADDLE_LENGTH/2) + (BALL_RADIUS * 1)) && Math.abs(paddleX-ballX) <= BALL_RADIUS) {
+					if (lastBounceID != i) {
+						pongBall.paddleBounce(paddle);
+					}
+					lastBounceID = i;
 				}
 			}
+			i++;
 		}
 	}
 	

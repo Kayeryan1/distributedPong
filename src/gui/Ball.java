@@ -32,6 +32,7 @@ class Ball extends Circle {
 			double ballVy = BALL_SPEED * Math.cos(angle);
 			if (paddle.position.y == ClientGUI.WINDOW_HEIGHT-ClientGUI.PADDLE_PADDING) {
 				ballVy *= -1;
+				//ballVx *= -1;
 			}
 			this.velocity.x = ballVx;
 			this.velocity.y = ballVy;
@@ -42,16 +43,19 @@ class Ball extends Circle {
 			double shiftedIntersectY = (relIntersectY / (normalizer));
 			double angle = shiftedIntersectY * MAX_ANGLE;
 			double ballVx = BALL_SPEED * Math.cos(angle);
+			double ballVy = BALL_SPEED * (-1 * Math.sin(angle));
+			
 			if (paddle.position.x == ClientGUI.WINDOW_WIDTH-ClientGUI.PADDLE_PADDING) {
 				ballVx *= -1;
+				//ballVy *= -1;
 			}
-			double ballVy = BALL_SPEED * (-1 * Math.sin(angle));
 			
 			this.velocity.x = ballVx;
 			this.velocity.y = ballVy;
 			System.out.println("BOUNCE! off of " + paddle.position.x);
 			System.out.println("\tVelocity X = " + this.velocity.x);
 			System.out.println("\tVelocity Y = " + this.velocity.y);
+			
 		}
 	}
 	
