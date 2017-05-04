@@ -18,7 +18,7 @@ public class ClientGUI extends Application {
 	final static int PADDLE_LENGTH = 35; 
 	final static int PADDLE_WIDTH = 3; 
 	final static int WINDOW_WIDTH = 500;
-	final static int WINDOW_HEIGHT = 420;
+	final static int WINDOW_HEIGHT = 500;
 	final static int PADDLE_PADDING = 15;	// margin between screen edge and paddles
 	final static int BALL_RADIUS = PADDLE_LENGTH/7;
 
