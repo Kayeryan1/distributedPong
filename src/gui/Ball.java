@@ -7,13 +7,17 @@ class Ball extends Circle {
 	final Point position;
 	final Point velocity;
 	final static double MAX_ANGLE = 5 * (Math.PI / 12);
-	final static double BALL_SPEED = 0.75;
+	double BALL_SPEED = 0.75;
 	
 	public Ball(double x, double y, double velX, double velY, double radius) {
 		this.position = new Point(x, y);
 		this.velocity = new Point(velX, velY);
 		
 		this.setRadius(radius);
+	}
+	
+	public void setSpeed(double x) {
+		this.BALL_SPEED = x;
 	}
 	
 	public void wallBounce(){

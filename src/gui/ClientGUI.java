@@ -184,9 +184,14 @@ public class ClientGUI extends Application {
 	}
 	
 	public Ball initializeBall(Pane root) {
-		double initialXVelocity = -1 * Ball.BALL_SPEED;
+		double ballSpeed = 0.75;
+		if (paddles.size() == 4) {
+			ballSpeed = 3;
+		}
+		double initialXVelocity = -1 * ballSpeed;
 		int initialYVelocity = 0;
 		Ball ball = new Ball(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, initialXVelocity, initialYVelocity, BALL_RADIUS);
+		ball.setSpeed(ballSpeed);
 		root.getChildren().add(ball);
 		return ball;
 	}
