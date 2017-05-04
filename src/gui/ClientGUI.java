@@ -96,6 +96,7 @@ public class ClientGUI extends Application {
 				
 				// detect collisions
 				processBallBounces();
+				detectWallBounces();
 				
 				// check for game score
 				
@@ -129,6 +130,21 @@ public class ClientGUI extends Application {
 				}
 			}
 			i++;
+		}
+	}
+	
+	public void detectWallBounces(){
+		double ballX = pongBall.position.x;
+		double ballY = pongBall.position.y;
+		
+		if( ballX <= 0 ){
+			pongBall.velocity.x = Math.abs(pongBall.velocity.x);
+		}else if(ballX >= ClientGUI.WINDOW_WIDTH){
+			pongBall.velocity.x = -1*(Math.abs(pongBall.velocity.x));
+		}else if( ballY <= 0 ){
+			pongBall.velocity.y = Math.abs(pongBall.velocity.y);
+		}else if(ballY >= ClientGUI.WINDOW_HEIGHT){
+			pongBall.velocity.y = -1*(Math.abs(pongBall.velocity.y));
 		}
 	}
 	
@@ -174,6 +190,8 @@ public class ClientGUI extends Application {
 		root.getChildren().add(ball);
 		return ball;
 	}
+	
+
 	
 	public static void main(String[] args) {
 		//TODO: pass data from args 
