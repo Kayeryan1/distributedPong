@@ -62,19 +62,6 @@ public class ClientGUI extends Application {
 	}
 	
 	private void startGameLoop() {
-//		Runnable ballAnimator = () -> {
-//			while (true) {
-//				processBallBounces();
-//				pongBall.move();
-//				try {
-//					Thread.sleep(50);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		};
-//		new Thread(ballAnimator).start();
-
 		Runnable gameLoop = () -> {
 			while (!gameOver) {
 
